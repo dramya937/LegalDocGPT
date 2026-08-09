@@ -1,0 +1,47 @@
+[
+  {
+    "contract_file": "contract_1_service_agreement.txt",
+    "question": "How many days does the client have to pay an invoice before interest starts accruing?",
+    "ground_truth": "The client must pay within 30 days of the invoice date before interest begins accruing at 1.5% per month."
+  },
+  {
+    "contract_file": "contract_1_service_agreement.txt",
+    "question": "What is the cap on the provider's total liability under this agreement?",
+    "ground_truth": "Provider's total liability is capped at the total fees paid by Client in the three months preceding the claim, and neither party is liable for indirect, incidental, consequential, or punitive damages."
+  },
+  {
+    "contract_file": "contract_1_service_agreement.txt",
+    "question": "How does this agreement resolve disputes between the parties?",
+    "ground_truth": "Disputes first go to good-faith negotiation between executives; if unresolved within 30 days, they go to binding arbitration in Delaware under AAA rules."
+  },
+  {
+    "contract_file": "contract_2_nda.txt",
+    "question": "How long do the confidentiality obligations survive after the agreement ends?",
+    "ground_truth": "The agreement itself lasts 2 years, but the confidentiality obligations survive termination for 5 years."
+  },
+  {
+    "contract_file": "contract_2_nda.txt",
+    "question": "What categories of information are excluded from the definition of Confidential Information?",
+    "ground_truth": "Excluded are information that becomes publicly available through no fault of the receiving party, information already known before disclosure, independently developed information, and information rightfully received from a third party without restriction."
+  },
+  {
+    "contract_file": "contract_2_nda.txt",
+    "question": "What remedy is available if confidential information is disclosed without authorization?",
+    "ground_truth": "The disclosing party may seek injunctive relief in addition to other available remedies, since unauthorized disclosure may cause irreparable harm that monetary damages can't adequately fix."
+  },
+  {
+    "contract_file": "contract_3_vendor_lease.txt",
+    "question": "What is the maximum amount the Lessor can be held liable for under this agreement?",
+    "ground_truth": "Lessor's total liability is capped at $100 regardless of the number of claims, and the Lessee waives any right to consequential, incidental, or punitive damages."
+  },
+  {
+    "contract_file": "contract_3_vendor_lease.txt",
+    "question": "Under what conditions can the Lessor terminate the agreement and repossess the equipment?",
+    "ground_truth": "Lessor may terminate immediately and repossess the equipment without notice if Lessee misses two or more consecutive monthly payments."
+  },
+  {
+    "contract_file": "contract_3_vendor_lease.txt",
+    "question": "How much notice must the Lessee give to avoid automatic renewal of the lease?",
+    "ground_truth": "Lessee must provide written notice of non-renewal at least 90 days before the end of the current term, or the lease automatically renews for another 12 months."
+  }
+]

@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from utils.logger import log_info
+from utils.cost_tracker import CostTracker, DEFAULT_MODEL
 import json
 
 SUMMARY_PROMPT = PromptTemplate(
@@ -23,23 +24,34 @@ Keep the language simple, avoid legal jargon, and be concise.
 """
 )
 
-def summarize_contract(clause_data: list) -> dict:
+def summarize_contract(
+    clause_data: list,
+    model: str = DEFAULT_MODEL,
+    tracker: CostTracker = None,
+) -> dict:
     """
     Takes structured clause data and generates a plain-English summary report.
-    Returns a dict with clause_data and plain English summary.
+    Returns a dict with clause_data, plain English summary, and this stage's
+    cost/latency (tracked via the shared CostTracker if one is passed in, so
+    the caller can report one combined per-document total).
     """
     log_info("Generating plain-English summary...")
+    tracker = tracker or CostTracker()
 
-    llm = ChatOpenAI(model="gpt-4", temperature=0.3)
+    llm = ChatOpenAI(model=model, temperature=0.3)
     chain = SUMMARY_PROMPT | llm
 
     clause_text = json.dumps(clause_data, indent=2)
-    response = chain.invoke({"clause_data": clause_text})
+    with tracker.track("summarization", model=model) as t:
+        response = chain.invoke({"clause_data": clause_text})
+        t.record(response)
     summary_text = response.content
 
     high_risk = [c for c in clause_data if c.get("risk_level") == "High"]
     medium_risk = [c for c in clause_data if c.get("risk_level") == "Medium"]
     low_risk = [c for c in clause_data if c.get("risk_level") == "Low"]
+
+    stage_summary = tracker.summary()["by_stage"][-1]
 
     report = {
         "clauses": clause_data,
@@ -49,7 +61,9 @@ def summarize_contract(clause_data: list) -> dict:
             "low": len(low_risk),
             "total": len(clause_data)
         },
-        "plain_english_summary": summary_text
+        "plain_english_summary": summary_text,
+        "cost_usd": stage_summary["cost_usd"],
+        "latency_seconds": stage_summary["latency_seconds"],
     }
 
     log_info("Summary report generated successfully.")

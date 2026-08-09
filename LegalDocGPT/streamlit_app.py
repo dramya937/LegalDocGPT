@@ -4,6 +4,7 @@ import tempfile
 from app.contract_parser import parse_contract
 from app.clause_analyzer import analyze_clauses
 from app.summarizer import summarize_contract
+from utils.cost_tracker import CostTracker, MODEL_PRICING, DEFAULT_MODEL
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -25,8 +26,16 @@ with st.sidebar:
         os.environ["OPENAI_API_KEY"] = api_key
         st.success("API key set!")
     st.divider()
+    model = st.selectbox(
+        "Model",
+        options=list(MODEL_PRICING.keys()),
+        index=list(MODEL_PRICING.keys()).index(DEFAULT_MODEL),
+        help="Cheaper models cost less but may extract clauses less reliably — see the Evaluation section in the README for measured tradeoffs.",
+    )
+    pricing = MODEL_PRICING[model]
+    st.caption(f"${pricing['input']:.2f}/1M input · ${pricing['output']:.2f}/1M output tokens")
+    st.divider()
     st.markdown("**Supported formats:** PDF, DOCX")
-    st.markdown("**Models used:** GPT-4 + FAISS")
     st.markdown("**Pipeline:** RAG-based clause extraction")
 
 # ── File Upload ───────────────────────────────────────────────────────────────
@@ -52,11 +61,13 @@ if uploaded_file:
                 contract_text = parse_contract(tmp_path)
                 os.unlink(tmp_path)
 
+            tracker = CostTracker()
+
             with st.spinner("Running RAG pipeline — extracting clauses..."):
-                clause_data = analyze_clauses(contract_text)
+                analysis = analyze_clauses(contract_text, model=model, tracker=tracker)
 
             with st.spinner("Generating plain-English summary..."):
-                report = summarize_contract(clause_data)
+                report = summarize_contract(analysis["clauses"], model=model, tracker=tracker)
 
             st.success("Analysis complete!")
             st.divider()
@@ -68,6 +79,17 @@ if uploaded_file:
             col2.metric("🔴 High Risk", report["risk_summary"]["high"])
             col3.metric("🟡 Medium Risk", report["risk_summary"]["medium"])
             col4.metric("🟢 Low Risk", report["risk_summary"]["low"])
+            st.divider()
+
+            # ── Cost & Latency ───────────────────────────────────────────────
+            totals = tracker.summary()
+            st.subheader("💵 Cost & Latency (this run)")
+            c1, c2, c3 = st.columns(3)
+            c1.metric("Model", model)
+            c2.metric("Cost", f"${totals['total_cost_usd']:.5f}")
+            c3.metric("Latency", f"{totals['total_latency_seconds']:.2f}s")
+            with st.expander("Breakdown by pipeline stage"):
+                st.table(totals["by_stage"])
             st.divider()
 
             # ── Plain English Summary ─────────────────────────────────────────

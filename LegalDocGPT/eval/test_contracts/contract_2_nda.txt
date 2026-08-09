@@ -1,0 +1,55 @@
+MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement ("Agreement") is made between Vertex
+Robotics Inc. ("Vertex") and Sable Manufacturing Co. ("Sable") for the purpose
+of evaluating a potential business relationship (the "Purpose").
+
+1. DEFINITION OF CONFIDENTIAL INFORMATION
+"Confidential Information" means any technical, business, or financial
+information disclosed by either party, whether orally or in writing, that is
+designated as confidential or that reasonably should be understood to be
+confidential given the nature of the information.
+
+2. OBLIGATIONS
+Each receiving party agrees to: (a) use the disclosing party's Confidential
+Information solely for the Purpose; (b) not disclose the Confidential
+Information to any third party without prior written consent; and (c) protect
+the Confidential Information using at least the same degree of care it uses to
+protect its own confidential information, but no less than reasonable care.
+
+3. TERM
+This Agreement shall remain in effect for two (2) years from the effective
+date. The confidentiality obligations in Section 2 shall survive termination
+of this Agreement for a period of five (5) years.
+
+4. EXCLUSIONS
+Confidential Information does not include information that: (a) is or becomes
+publicly available through no fault of the receiving party; (b) was already
+known to the receiving party prior to disclosure; (c) is independently
+developed without use of the disclosing party's Confidential Information; or
+(d) is rightfully received from a third party without restriction.
+
+5. NO LICENSE
+Nothing in this Agreement shall be construed as granting any license or right
+to any patent, trademark, copyright, or other intellectual property of the
+disclosing party.
+
+6. RETURN OF MATERIALS
+Upon written request, each receiving party shall promptly return or destroy all
+copies of the disclosing party's Confidential Information.
+
+7. NO OBLIGATION TO PROCEED
+Nothing in this Agreement obligates either party to proceed with any
+transaction or business relationship.
+
+8. REMEDIES
+Each party acknowledges that unauthorized disclosure of Confidential
+Information may cause irreparable harm for which monetary damages would be an
+inadequate remedy, and therefore the disclosing party shall be entitled to seek
+injunctive relief in addition to any other available remedies.
+
+9. GOVERNING LAW
+This Agreement shall be governed by the laws of the State of California.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the date
+first written above.

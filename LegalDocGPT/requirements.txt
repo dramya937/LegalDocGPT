@@ -1,9 +1,15 @@
-openai>=1.0.0
-langchain>=0.2.0
-langchain-openai>=0.1.0
-langchain-community>=0.2.0
-faiss-cpu>=1.7.4
-PyPDF2>=3.0.0
-python-docx>=1.0.0
-streamlit>=1.35.0
-tiktoken>=0.7.0
+# Pinned to versions this project is actually tested against (Aug 2026).
+# The original open-ended ">=" ranges silently broke on langchain>=0.3, which
+# moved text_splitter and prompts out of the core package. Pin, don't float,
+# for anything with a fast-moving public API like LangChain.
+openai==2.53.0
+langchain==1.3.14
+langchain-openai==1.4.2
+langchain-community==0.4.2
+langchain-text-splitters>=0.3.0
+langchain-core>=0.3.0
+faiss-cpu==1.15.0
+PyPDF2==3.0.1
+python-docx==1.2.0
+streamlit==1.61.1
+tiktoken==0.13.0

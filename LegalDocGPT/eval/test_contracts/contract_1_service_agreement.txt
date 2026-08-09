@@ -1,0 +1,62 @@
+MASTER SERVICES AGREEMENT
+
+This Master Services Agreement ("Agreement") is entered into between Brightline
+Consulting LLC ("Provider") and Northgate Retail Inc. ("Client"), effective as
+of the date of last signature below.
+
+1. SCOPE OF SERVICES
+Provider shall deliver data analytics consulting services as described in each
+Statement of Work ("SOW") executed under this Agreement. Each SOW shall specify
+deliverables, timelines, and fees.
+
+2. PAYMENT TERMS
+Client shall pay all undisputed invoiced amounts within thirty (30) days of the
+invoice date. Amounts not paid within this period shall accrue interest at 1.5%
+per month. Provider may suspend services if any invoice remains unpaid for more
+than forty-five (45) days after the due date.
+
+3. TERM AND TERMINATION
+This Agreement shall remain in effect for twelve (12) months from the effective
+date and shall automatically renew for successive twelve (12) month terms unless
+either party provides written notice of non-renewal at least sixty (60) days
+before the end of the then-current term. Either party may terminate this
+Agreement for convenience upon thirty (30) days written notice. Either party may
+terminate immediately for material breach if the breaching party fails to cure
+the breach within fifteen (15) days of written notice.
+
+4. LIMITATION OF LIABILITY
+IN NO EVENT SHALL PROVIDER'S TOTAL LIABILITY ARISING OUT OF OR RELATED TO THIS
+AGREEMENT EXCEED THE TOTAL FEES PAID BY CLIENT TO PROVIDER IN THE THREE (3)
+MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM. IN NO EVENT SHALL EITHER
+PARTY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
+
+5. CONFIDENTIALITY
+Each party agrees to protect the other party's confidential information using
+the same degree of care it uses for its own confidential information, and in no
+event less than reasonable care, for a period of three (3) years after
+disclosure. Confidential information does not include information that becomes
+publicly available through no fault of the receiving party.
+
+6. INTELLECTUAL PROPERTY
+All deliverables created by Provider specifically for Client under an SOW shall
+be considered "work made for hire" and shall be owned exclusively by Client upon
+full payment. Provider retains ownership of all pre-existing tools, frameworks,
+and methodologies used to deliver the services.
+
+7. INDEMNIFICATION
+Client shall indemnify, defend, and hold harmless Provider from any third-party
+claims arising from Client's misuse of the deliverables or Client's breach of
+this Agreement.
+
+8. DISPUTE RESOLUTION
+Any dispute arising out of this Agreement shall first be submitted to good-faith
+negotiation between the parties' executives. If unresolved within thirty (30)
+days, the dispute shall be resolved through binding arbitration in the state of
+Delaware under the rules of the American Arbitration Association.
+
+9. GOVERNING LAW
+This Agreement shall be governed by the laws of the State of Delaware, without
+regard to its conflict of law principles.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the date
+first written above.
