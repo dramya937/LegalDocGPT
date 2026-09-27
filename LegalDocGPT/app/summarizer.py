@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from utils.logger import log_info
 from utils.cost_tracker import CostTracker, DEFAULT_MODEL
 import json
