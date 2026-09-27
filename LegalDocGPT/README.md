@@ -14,9 +14,21 @@ An AI-powered contract analysis tool that uses a **Retrieval-Augmented Generatio
 
 Contracts are chunked and embedded rather than sent to the LLM whole, so the
 pipeline scales to long documents and grounds every extracted clause in
-retrieved source text instead of the model's unsupported recall. Retrieval
-and cost/latency are both measured, not assumed — see **Evaluation** and
-**Cost & Latency** below.
+retrieved source text instead of the model's unsupported recall.
+
+Clause extraction runs **per clause category** rather than as a single
+combined call: for each of 9 clause categories (payment terms, termination,
+liability, confidentiality, IP, indemnification, warranties, dispute
+resolution, non-compete), the pipeline retrieves that category's most
+relevant chunks and runs a dedicated extraction call, with an explicit
+"empty array if not present" instruction. The 9 calls run concurrently
+(via a thread pool) so this doesn't multiply end-to-end latency. This
+keeps less-central clause types — non-compete or warranties clauses, for
+example — from getting folded into or crowded out by more prominent ones
+when everything is extracted in a single pass.
+
+Retrieval and cost/latency are both measured, not assumed — see
+**Evaluation** and **Cost & Latency** below.
 
 > **Note on the image above:** this is an architecture diagram, not a UI
 > screenshot. A live product screenshot will be added here once the app is
@@ -27,7 +39,7 @@ and cost/latency are both measured, not assumed — see **Evaluation** and
 
 ## ✨ Features
 
-- **RAG-based clause extraction** — contracts are chunked and embedded so large documents don't overflow the context window
+- **RAG-based, per-category clause extraction** — contracts are chunked and embedded, then each clause category is retrieved and extracted independently (run concurrently) so large or dense documents don't overflow the context window and no clause category gets silently dropped in favor of more prominent ones
 - **Structured risk scoring** — each clause is tagged as High / Medium / Low risk with a plain-English explanation
 - **Plain-English summary** — non-lawyers can understand what they're signing
 - **Streamlit UI** — clean browser-based interface with risk overview metrics, a live model selector, and a cost/latency breakdown per run
@@ -45,7 +57,7 @@ LegalDocGPT/
 │
 ├── app/
 │   ├── contract_parser.py      # PDF/DOCX text extraction
-│   ├── clause_analyzer.py      # RAG pipeline: chunk, embed, retrieve, extract
+│   ├── clause_analyzer.py      # RAG pipeline: per-category chunk, embed, retrieve, extract (concurrent)
 │   └── summarizer.py           # Plain-English report generation
 │
 ├── utils/
@@ -116,7 +128,8 @@ python main.py
 
 The test suite is fully offline — no OpenAI API key required. It covers text
 cleaning, document parsing, the LLM JSON-parsing fallback path (including
-malformed output), cost/latency math, and eval-fixture consistency.
+malformed and markdown-fenced output), cost/latency math, and eval-fixture
+consistency.
 
 ```bash
 pip install -r requirements-dev.txt
@@ -182,9 +195,13 @@ against current per-model rates:
 *(Rates as of Aug 2026 — check [openai.com/api/pricing](https://openai.com/api/pricing/) periodically, since these have dropped substantially more than once.)*
 
 The Streamlit sidebar lets you switch models per run and see the resulting
-cost/latency tradeoff directly — a several-page contract typically costs a
-fraction of a cent to a few cents on gpt-4o, and roughly 10x that on legacy
-gpt-4.
+cost/latency tradeoff directly. Because clause extraction now runs one
+dedicated call per clause category rather than a single combined call,
+typical per-document cost on gpt-4o is around **$0.02–0.06** for a short-to-
+medium contract — a bit higher than a single-call approach, in exchange for
+materially more reliable coverage of every clause category (see
+Architecture above). The 9 per-category calls run concurrently, so latency
+stays around 8–10 seconds rather than scaling linearly with category count.
 
 ---
 
@@ -211,7 +228,7 @@ Standard contract analysis tools send the entire document to GPT in one call. Th
 This tool uses RAG to:
 - Split contracts into overlapping chunks (1000 tokens, 150 overlap)
 - Embed and store chunks in a FAISS vector store
-- Retrieve only the most relevant sections per query
+- Retrieve the most relevant chunks **per clause category**, independently, rather than pooling everything into one retrieval pass
 - Ground the LLM's responses in actual contract text — and measure that grounding with the faithfulness metric above, rather than assuming it
 
 ---
